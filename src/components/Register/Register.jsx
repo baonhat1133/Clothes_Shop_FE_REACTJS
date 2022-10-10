@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { registerUser } from "../../redux/apiRequest";
+import { registerUser } from "../../services/authServices";
 import "./register.css";
 const Register = () => {
     let dispatch = useDispatch();
@@ -24,9 +24,9 @@ const Register = () => {
         registerUser(regUser, dispatch, navigate);
     }
     return ( 
-        <section className="register-container">
-              <div className="register-title"> Sign up </div>
-            <form>
+        <section className="register-page-container">
+              <div className="register-page-title"> Sign up </div>
+            <form className="register-page-form">
                 <label>FULLNAME</label>
                 <input type="text" placeholder="Enter your Full Name..." onChange={e=>setFullname(e.target.value)}/>
                 <label>EMAIL</label>
@@ -36,7 +36,6 @@ const Register = () => {
                 <label>PASSWORD</label>
                 <input type="password" placeholder="Enter your Password..." onChange={e=>setPassword(e.target.value)}/>
                 <label>ROLE_ID (User:2)</label>
-                {/* <input type="text" placeholder="Enter your role..." onChange={e=>setRole(e.target.value)}/> */}
                 <select style={{marginTop:"10px"}}>
                     <option value="2">2</option>
                 </select>
