@@ -1,0 +1,107 @@
+.create-product-ad {
+  margin-top: 30px;
+}
+.create-product-ad button {
+  padding: 6px 30px;
+  margin-bottom: 10px;
+  background-color: var(--text-navbar);
+  color: white;
+  border: 2px solid var(--bgr-header);
+  font-weight: bold;
+  cursor: pointer;
+}
+.title-products-table th,
+.title-products-table td {
+  width: 3%;
+}
+.main-admin-product {
+  /* position: relative; */
+}
+.table-list-product {
+  width: calc(100% -360px);
+  margin-right: 30px;
+  height: 500px;
+  overflow: auto;
+}
+.head-title-products {
+  width: 100%;
+  background-color: var(--bgr-header);
+  color: #fff;
+}
+.table-list-product table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.title-bold-prd {
+  /* position: absolute; */
+  top: -50px;
+}
+.title-bold-prd tr th {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+.product-table-ad td {
+  text-align: center;
+  border-bottom: 1px solid black;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.btn-product-ad button {
+  padding: 5px 10px;
+  border: 2px solid var(--bgr-header);
+  cursor: pointer;
+}
+.btn-product-ad button:nth-child(1) {
+  background-color: var(--btn);
+  margin-right: 5px;
+}
+.btn-product-ad button:nth-child(2) {
+  background-color: var(--text-navbar);
+}
+.title-products-table {
+  width: 100%;
+}
+/* Form */
+
+.CreateForm {
+  width: calc(100% -360px);
+}
+.form-create-product {
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--bgr-header);
+  padding: 30px 50px;
+  box-shadow: 0px 0px 8px 0px;
+}
+.form-create-product label {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.form-create-product input {
+  font-size: 16px;
+  padding: 5px 5px;
+}
+.category_id {
+  width: 100px;
+  font-size: 16px;
+}
+.btn-form-create-prd button {
+  margin-top: 10px;
+  width: 50%;
+  padding: 10px 20px;
+  background-color: var(--bgr-header);
+  color: #fff;
+}
+
+.btn-form-create-prd {
+  display: flex;
+  justify-content: center;
+}
+.previewImg {
+  text-align: center;
+  height: 60px;
+}

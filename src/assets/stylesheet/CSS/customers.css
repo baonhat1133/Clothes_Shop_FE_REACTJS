@@ -1,0 +1,23 @@
+.title-bold-prd-cus {
+  position: absolute;
+  right: 30px;
+  top: -50px;
+}
+.title-bold-prd-cus tr th {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 30px;
+  /* text-align: center; */
+}
+.product-table-ad-cus td {
+  border-bottom: 1px solid black;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 90px;
+}
+.btn-product-ad i {
+  color: white;
+  background-color: red;
+  border: 3px solid red;
+  padding: 1px 2px;
+}

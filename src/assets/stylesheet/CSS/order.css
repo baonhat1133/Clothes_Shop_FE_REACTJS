@@ -1,0 +1,10 @@
+.main-admin-product-order {
+  position: relative;
+  top: 45px;
+}
+.btn-product-ad-orders button {
+  padding: 5px 5px;
+  text-align: center;
+  background-color: var(--btn);
+  cursor: pointer;
+}
