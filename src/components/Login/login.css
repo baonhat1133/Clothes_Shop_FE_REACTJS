@@ -1,13 +1,20 @@
+.box-login {
+  display: flex;
+  margin-top: 50px;
+}
 .login-page-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 3rem;
+  /* margin-top: 3rem; */
+  margin: 0 auto;
+
   border-radius: 12px;
   height: 400px;
-  min-width: 20%;
-  background-color: rgb(218, 218, 218);
+  width: 300px;
+  background-color: var(--bgr-header);
+  color: white;
 }
 .login-page-title {
   font-weight: 700;
@@ -40,7 +47,8 @@
   padding: 0.65rem;
   border-radius: 4px;
   color: white;
-  background-color: rgb(161, 161, 161);
+  background-color: rgb(81, 81, 109);
+  box-shadow: 3px 3px 6px 3px;
 }
 .login-page-register {
   margin: 2rem 1rem 0 1rem;
@@ -50,6 +58,6 @@
   text-decoration: none;
   cursor: pointer;
   margin-top: 1rem;
-  color: rgb(105, 105, 105);
+  color: white;
   font-weight: 700;
 }

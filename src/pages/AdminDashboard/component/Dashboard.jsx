@@ -1,6 +1,28 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import "../../../assets/stylesheet/CSS/dashboard.css"
+import {getAllUser} from "../../../services/authServices";
+import {getAllOrder} from "../../../services/productServices";
+import {useDispatch, useSelector} from "react-redux"
 const Dashboard = () => {
+    const dispatch = useDispatch();
+    let allUser = useSelector(state =>state.auth.getAllUser?.allUser?.data);
+    let allOrder = useSelector(state => state.order.getAllOrderAdmin?.allOrderAdmin?.data);
+    let total_success=0;
+    let total_pending=0;
+    let total_order=0;
+    allOrder?.map((order)=>{
+        total_order++;
+        if(order.status==="Pending"){
+            total_pending++;
+        }
+        if(order.status==="Success"){
+            total_success++;
+        }
+    })
+    useEffect(() =>{
+        getAllUser(dispatch);
+        getAllOrder("All", dispatch);
+    },[])
   return (
     <div className="container-main">
     <div id="main" >
@@ -8,12 +30,7 @@ const Dashboard = () => {
             <div className="left-head">
                 <h1 className="title-list">Dashboard</h1>
             </div>  
-            
-{/*          <!--      <div className="item-user">
-                    <i className="far fa-user-circle"></i>
-                </div>
-            --> */}
-            
+                  
         </div>
         <div className="line1"></div>
         <br/>
@@ -21,13 +38,13 @@ const Dashboard = () => {
 
                 <div className="box">
                     <div className="content-box">
-                        <p>100<br/><span>Users</span></p>
+                        <p>{allUser?.length}<br/><span>Users</span></p>
                     <i className="fa fa-users box-icon"></i>
                     </div>
                 </div>
                 <div className="box">
                     <div className="content-box">
-                        <p>88<br/><span>Success</span></p>
+                        <p>{total_success}<br/><span>Success</span></p>
                         <i className="fa fa-list box-icon"></i>
                     </div>
                 
@@ -35,13 +52,13 @@ const Dashboard = () => {
 
                 <div className="box">
                     <div className="content-box">
-                        <p>12<br/><span>Pending</span></p>
+                        <p>{total_pending}<br/><span>Pending</span></p>
                         <i className="fa fa-shopping-bag box-icon"></i>
                     </div>  
                 </div>
                 <div className="box">
                     <div className="content-box">
-                        <p>4<br/>Total Order<span></span></p>
+                        <p>{total_order}<br/>Total Order<span></span></p>
                     <i className="fa fa-tasks box-icon" ></i>
                     </div>
                     
@@ -81,7 +98,7 @@ const Dashboard = () => {
                                     <div className="mask half">
                                     <div className="fill-1"></div>
                                     </div>
-                                    <div className="inside-circle"> 65% </div>
+                                    <div className="inside-circle"> {Math.round((total_success/total_order)*100)}% </div>
                             </div>
                         </div>
                     </div>
@@ -89,17 +106,25 @@ const Dashboard = () => {
             <div className="chart2">
                <div className="charttop">
                     <table className="box-topU">
-                        <tr className="txt-topU">
-                            <th>USERS</th>
-                        </tr>
+                        <div className="txt-topU">
+                           <p>TOP ORDER USER</p>
+                        </div>
                         <tr className="title-topU">
-                            <td className="chart2U">User Name</td>
-                            <td>Total Client</td>
+                            <th className="chart2U">User Name</th>
+                            <th>Total Product </th>
                         </tr>
+                        {
+                            allOrder?.map((order)=>(
+                                <tr>
+                                    <td>{order.fullname}</td>
+                                    <td>{order.total_product}</td>
+                                </tr>
+                            ))
+                        }
                     </table>
-                    <table className="list-top-user">
-                      
-                    </table>
+                    {/* <table className="list-top-user">
+                        
+                    </table> */}
                </div>
                     
             </div>

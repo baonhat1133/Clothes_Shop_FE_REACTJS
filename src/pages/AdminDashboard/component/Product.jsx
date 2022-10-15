@@ -4,7 +4,10 @@ import "../../../assets/stylesheet/CSS/product.css"
 import {createProduct, getAllProduct, updateProduct,deleteProduct } from "../../../services/productServices";
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-export let getBase64 = (file) => {
+import {CreateAxios} from "../../../utils/http";
+const Product = () => {
+  
+let getBase64 = (file) => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -12,24 +15,26 @@ export let getBase64 = (file) => {
     reader.onerror = (err) => reject(err);
   });
 };
-
-
-const Product = () => {
   //set state để render lại
   let elementCreate = useRef();
   let elementDelEdit = useRef();
   let elementBtn =useRef();
   let elementBtnUpdate =useRef();
   const dispatch = useDispatch();
-  let allProduct = useSelector(state => state.product.getAllProduct.allProduct?.data);
+  let allProduct = useSelector(state => state.product.getAllProduct?.allProduct?.data);
+
+
   //Form handle
   let [id, setId]= useState()
   let [title, setTitle] = useState("");
   let [price, setPrice] = useState();
+  let [amount, setAmount] = useState(1);
   let [category, setCategory] = useState(1);
   let [discount, setDiscount] = useState();
   let [baseImg, setBaseImg] = useState("");
-  let toggleState=(e)=>{
+  let toggleState=async (e)=>{
+  // let a=await refreshToken(userlogin.other.id, userlogin.refreshToken, dispatch );
+  // console.log(a,"<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>");
     if(e.target.innerText==="CREATE" ){
       elementCreate.current.style.display="none";
       elementDelEdit.current.style.display="block";
@@ -63,32 +68,50 @@ const Product = () => {
     }
   }
 
-  let handleDeleteProduct = (e,prd)=>{
-    deleteProduct(prd.id, dispatch);
-  }
   //convert ảnh được chọn
   let getInput =async (e)=>{
     let file = e.target.files[0];
     let imgBase64= await getBase64(file);
     setBaseImg(imgBase64);
   }
-  let handleSubmit=(e)=>{
+  //access token admin
+  let inforLogin = useSelector(state =>state.auth.login.currentUser);
+  let accesstokenAd = inforLogin?.accessToken;
+
+  // let userlogin = useSelector(state => state.auth.login.currentUser);
+  
+  //Check token and refresh
+
+  
+
+  //Create Interceptors
+ 
+  
+  console.log(accesstokenAd)
+  let handleSubmit=async (e)=>{
     e.preventDefault();
     if(e.target.innerText ==="CREATE"){
         // category_id, title, price, discount, image
         let inforProduct = {
-          category_id:category, title:title, price:price, discount:discount, image:baseImg
+          category_id:category, title:title, price:price,amount:amount, discount:discount, image:baseImg
         }
-        createProduct(inforProduct, dispatch);
+        createProduct(inforProduct, dispatch,await CreateAxios(inforLogin,dispatch,accesstokenAd));//,requestCheckAxios
     }
     if(e.target.innerText ==="UPDATE"){
       let upProduct = {
-        category_id:category, title:title, price:price, discount:discount, image:baseImg
+        category_id:category, title:title, price:price,amount:amount, discount:discount, image:baseImg
       }
-      updateProduct(id,upProduct,dispatch);
+      updateProduct(id,accesstokenAd,upProduct,dispatch,await CreateAxios(inforLogin,dispatch,accesstokenAd) );//,requestCheckAxios
     }
    
   }
+  // let requestAxios =;
+  // let requestTokenAxios =  ;
+  let handleDeleteProduct = async(e,prd)=>{
+
+    deleteProduct(prd.id,accesstokenAd, dispatch,await CreateAxios(inforLogin,dispatch,accesstokenAd));
+  }
+
   useEffect(()=>{
     getAllProduct(dispatch);
   },[])
@@ -109,6 +132,10 @@ const Product = () => {
               <input type="text" onChange={e=>setTitle(e.target.value)} value={title}/>
               <label>Price:</label>
               <input type="text" onChange={e=>setPrice(e.target.value)} value={price} />
+              <div className="amountPrd">
+                <label>Amount:</label>
+                <input type="text" value={amount} disabled />
+              </div>
               <label>Category:</label>
               <select class="category_id" onChange={e=>setCategory(e.target.value)} value={category}>
                 <option value="1">Women</option>

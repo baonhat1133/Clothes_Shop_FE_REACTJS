@@ -1,5 +1,4 @@
-import requestAxios from "../utils/http";
-import axios from "axios";
+import requestAxiosNotToken from "../utils/http";
 import {
   loginStart,
   loginSuccess,
@@ -7,19 +6,22 @@ import {
   registerSuccess,
   registerError,
   registerStart,
+  getAllUserSuccess,
+  getAllUserError,
+  refreshTokenSuccess,
+  refreshTokenError,
+  logoutStart,
+  logoutSuccess,
+  logoutError,
 } from "../redux/authSlice";
-import {
-  adminLoginSuccess,
-  adminLoginStart,
-  adminLoginError,
-} from "../redux/adminSlice";
+
 export const loginUser = async (user, dispatch, navigate) => {
   dispatch(loginStart());
   try {
-    const res = await requestAxios.post("auth/checkLogin", user);
+    const res = await requestAxiosNotToken.post("auth/checkLogin", user);
     dispatch(loginSuccess(res.data));
     if (res.data.other.role_id === 1) {
-      navigate("/admin");
+      navigate("/admin/dashboard");
     } else navigate("/");
   } catch (err) {
     dispatch(loginError());
@@ -30,40 +32,55 @@ export const registerUser = async (user, dispatch, navigate) => {
   dispatch(registerStart());
   try {
     dispatch(registerSuccess());
-    await requestAxios.post("auth/register", user);
+    await requestAxiosNotToken.post("auth/register", user);
     navigate("/login");
   } catch (err) {
     dispatch(registerError());
   }
 };
 
-export const loginAdmin = async (accessToken, dispatch, navigate, instance) => {
-  dispatch(adminLoginStart());
-  console.log(instance);
+export const refreshToken = async (user_id, refreshToken, dispatch) => {
   try {
-    // let roleAdmin = await requestAxios.post("auth/loginAdmin", {
-    //   headers: {
-    //     token: `Bearer ${accessToken}`,
-    //   },
-    // });
-    // console.log(roleAdmin);
-    await instance({
-      url: process.env.REACT_APP_BASE_URL + "auth/loginAdmin",
-      method: "post",
-      headers: {
-        token: `Bearer ${accessToken}`,
-      },
-    })
-      .then((res) => {
-        console.log(res.data);
-        dispatch(adminLoginSuccess(res.data));
-        console.log("then");
-      })
-      .catch(function (error) {
-        console.log(error);
-        console.log("catch await");
-      });
+    let res = await requestAxiosNotToken.post("auth/refresh", {
+      user_id: user_id,
+      refreshToken: refreshToken,
+    });
+    dispatch(refreshTokenSuccess(res));
+    return res.data;
   } catch (err) {
-    dispatch(adminLoginError());
+    dispatch(refreshTokenError());
+  }
+};
+
+export let getAllUser = async (dispatch) => {
+  try {
+    let res = await requestAxiosNotToken.get("auth/getAllUser");
+    dispatch(getAllUserSuccess(res.data));
+  } catch (err) {
+    dispatch(getAllUserError());
+  }
+};
+export let logoutAcc = async (id, dispatch, requestTokenAxios) => {
+  dispatch(logoutStart());
+  try {
+    await requestTokenAxios.post(`auth/logout/${id}`, id);
+    dispatch(logoutSuccess());
+  } catch (err) {
+    dispatch(logoutError());
+  }
+};
+export let logoutAccAdmin = async (
+  id,
+  dispatch,
+  navigate,
+  requestTokenAxios
+) => {
+  dispatch(logoutStart());
+  try {
+    await requestTokenAxios.post(`auth/logout/${id}`, id);
+    dispatch(logoutSuccess());
+    navigate("/");
+  } catch (err) {
+    dispatch(logoutError());
   }
 };

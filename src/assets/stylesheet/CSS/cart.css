@@ -13,6 +13,46 @@ li {
   list-style: none;
 }
 
+.btnHistory button {
+  padding: 10px 20px;
+  font-size: 20px;
+  cursor: pointer;
+  background-color: var(--bgr-header);
+  color: white;
+}
+.btnHistory button:hover {
+  background-color: silver;
+  color: black;
+  transition: ease 0.5s;
+}
+.titleHistory {
+  font-weight: bold;
+}
+.titleHistory td {
+  padding: 10px 10px;
+}
+.titleHistory td button {
+  padding: 5px 15px;
+  font-size: 15px;
+}
+.pendingHistory {
+  padding: 5px 15px;
+  font-size: 15px;
+  background-color: orange;
+}
+.successHistory {
+  padding: 5px 15px;
+  font-size: 15px;
+  background-color: #07f11e;
+}
+.addressHistory span {
+  display: block;
+  width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 /* Cart */
 .wrap-cart {
   width: 88%;
@@ -100,6 +140,7 @@ li {
 }
 .box-moneypay {
   display: flex;
+  align-items: center;
 }
 .pay-money {
   margin-left: 15px;
@@ -124,11 +165,22 @@ li {
 .price-product {
   /* line-height:20px; */
 }
+.pricePrd {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.discountPrd {
+  display: flex;
+  align-items: center;
+}
+.delete-product {
+  padding-left: 15px;
+}
 .delete-product button {
   border: none;
   outline: none;
-  padding: 5px 5px;
-  border-radius: 20px;
+  padding: 7px 7px;
+  border-radius: 50px;
   cursor: pointer;
   background-color: red;
   color: white;
@@ -142,7 +194,7 @@ li {
 }
 .content-right-cart {
   width: 88%;
-  margin-top: 120px;
+  margin-top: 30px;
   border: 1px solid rgb(22, 21, 21);
   padding: 10px 20px;
   box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.4);
@@ -153,6 +205,15 @@ li {
   text-align: center;
   border-bottom: 2px solid var(--bgr-header);
   margin-bottom: 10px;
+}
+.AddressUser label {
+  font-weight: bold;
+}
+.AddressUser textarea {
+  padding: 10px 10px;
+  width: 100%;
+  font-size: 15px;
+  resize: none;
 }
 .temp-money {
   display: flex;
@@ -173,6 +234,9 @@ li {
 .note-ship {
   font-weight: 700;
   color: var(--bgr-header);
+}
+.note-ship i {
+  margin-right: 12px;
 }
 .total-payment {
   display: flex;

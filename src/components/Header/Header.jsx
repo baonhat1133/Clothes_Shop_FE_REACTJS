@@ -1,8 +1,21 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import "../../assets/stylesheet/CSS/style.css"
 import NavBar from "../NavBar/NavBar"
+import { useDispatch, useSelector } from 'react-redux'
+import {logoutAcc} from "../../services/authServices";
+import {CreateAxios} from "../../utils/http";
 const Header = () => {
+    let dispatch = useDispatch();
+    const listProductCart = useSelector((state) =>state.cart.addToCart.selectProduct);
+    const inforUser = useSelector((state) => state.auth.login.currentUser);
+    let user=inforUser?.other;
+    let accessTokenUser = inforUser?.accessToken;
+    let username= user?.email.split("@")[0];
+    let amount= listProductCart?.length;
+    let logoutAccount=async ()=>{
+        logoutAcc(inforUser.other.id,dispatch,await CreateAxios(inforUser,dispatch, accessTokenUser));
+    }
   return (
     <header>
         <nav className="header1">
@@ -95,15 +108,20 @@ const Header = () => {
                 <div className="header-right">
                     <div className="header-cart">
                         <NavLink to="/cart">
-                            <button><i className="fas fa-cart-arrow-down"></i>Giỏ hàng</button>
+                            <button><i className="fas fa-cart-arrow-down"></i></button>
                             <div className="quantity-cart">
-                                <div id="quantity-addcart">0</div>
+                                <div id="quantity-addcart">{amount}</div>
                             </div>
                         </NavLink>
                     </div>
+                    <div className="userNameLogin">
+                    <div className="login-header">
+                        {inforUser&&(<p style={{color:"black"}}>Hi,{username}</p>)||<NavLink to="/register">REGISTER</NavLink>} 
+                    </div>
+                    </div>
                     <div className="login-header">
                         <i class="fas fa-sign-in-alt"></i>
-                        <NavLink to="/login">LOGIN</NavLink>
+                        {!inforUser?(<NavLink to="/login">LOGIN</NavLink>):(<NavLink onClick={logoutAccount}>LOGOUT</NavLink>)}
                     </div>
                 </div>
             </div>

@@ -1,7 +1,16 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
+import { NavLink, useNavigate } from 'react-router-dom'
 import "../../assets/stylesheet/CSS/dashboard.css"
+import { logoutAccAdmin } from '../../services/authServices';
+import { CreateAxios } from '../../utils/http';
 const LeftAdmin = () => {
+    let dispatch = useDispatch();
+    let inforAdmin = useSelector(state =>state.auth.login?.currentUser);
+    let navigate = useNavigate();
+    let logoutAdmin =async ()=>{
+        logoutAccAdmin(inforAdmin.other.id,dispatch,navigate,await CreateAxios(inforAdmin,dispatch, inforAdmin.accessToken));
+    }
   return (
     <div>
             <div className="leftbox" id="myLeftBox">
@@ -21,7 +30,7 @@ const LeftAdmin = () => {
                     <i className="fas fa-user-alt"></i>Orders</NavLink>
                 <NavLink to="/admin/customers" className="itemleft clickItem2">
                     <i className="fa fa-users"  style={{fontSize: "25px"}}></i>Customers</NavLink>
-                <NavLink to="/admin/logout" className="itemleft clickItem5">
+                <NavLink to="/admin/logout" className="itemleft clickItem5" onClick={logoutAdmin}>
                     <i className="fas fa-sign-out-alt" id="signout"></i>Logout</NavLink>
             </div>
            

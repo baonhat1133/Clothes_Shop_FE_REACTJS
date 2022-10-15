@@ -251,13 +251,11 @@ body {
 
 .chart2 table tr {
   display: flex;
-  color: #fff;
+  /* color: #fff; */
+  justify-content: space-between;
   font-weight: bold;
   padding: 15px 40px;
   border-radius: 10px;
-}
-.chart2 table {
-  /* margin-top:50px; */
 }
 .chart2U {
   margin-right: 280px;
@@ -271,10 +269,23 @@ body {
   /* background-color:rgb(182, 32, 32); */
   color: black;
 }
-.txt-topU th {
+.txt-topU p {
+  margin-top: 15px;
+  font-weight: bold;
+  color: rgb(99, 59, 201);
+}
+.box-topU tr td:nth-child(2) {
+  width: 100px;
+  /* padding-right: 45px; */
+  text-align: center;
+}
+.box-topU tr th {
+  color: white;
+}
+/* .txt-topU th {
   color: rgb(99, 59, 201);
   border-bottom: 3px solid rgb(99, 59, 201);
-}
+} */
 .title-topU {
   background-color: rgb(99, 59, 201);
 }

@@ -24,7 +24,8 @@ const Register = () => {
         registerUser(regUser, dispatch, navigate);
     }
     return ( 
-        <section className="register-page-container">
+        <div className="box-register">
+                <div className="register-page-container">
               <div className="register-page-title"> Sign up </div>
             <form className="register-page-form">
                 <label>FULLNAME</label>
@@ -41,7 +42,8 @@ const Register = () => {
                 </select>
                 <button type="submit" onClick ={handleSubmitRegister}> REGISTER </button>
             </form>
-        </section>
+        </div>
+        </div>
         
      );
 }

@@ -4,7 +4,7 @@ import Header from "../../../components/Header/Header"
 import Footer from "../../../components/Footer/Footer"
 import {getAllProduct} from "../../../services/productServices"
 import { useDispatch, useSelector } from 'react-redux'
-import { addToCartSuccess, addToCartError } from "../../../redux/cartSlice"
+import { addToCartSuccess} from "../../../redux/cartSlice";
 
 export default function HomePage() {
  const dispatch= useDispatch();
@@ -40,7 +40,8 @@ export default function HomePage() {
   },[])
 
   let handleAddCart =(e, prd)=>{
-        dispatch()
+        console.log(prd)
+        dispatch(addToCartSuccess(prd));
   }
   return (
     <div>

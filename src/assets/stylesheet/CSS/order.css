@@ -2,9 +2,15 @@
   position: relative;
   top: 45px;
 }
-.btn-product-ad-orders button {
+.btn-product-ad-orders .btnPending {
   padding: 5px 5px;
   text-align: center;
   background-color: var(--btn);
+  cursor: pointer;
+}
+.btn-product-ad-orders .btnSuccess {
+  padding: 5px 5px;
+  text-align: center;
+  background-color: #07f11e;
   cursor: pointer;
 }
