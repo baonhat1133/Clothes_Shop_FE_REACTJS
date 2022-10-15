@@ -41,6 +41,7 @@ export let createProduct = async (
       data: inforProduct,
     });
     dispatch(createPrdSuccess());
+    alert("Create Product Success !!!");
   } catch (err) {
     dispatch(createPrdError());
   }
@@ -67,6 +68,7 @@ export let updateProduct = async (
   try {
     await requestTokenAxios.put(`product/updateProduct/${idProduct}`, product);
     dispatch(updateProductSuccess());
+    alert("Update Product Success !!!");
   } catch (err) {
     dispatch(updateProductError());
   }
@@ -92,6 +94,7 @@ export let deleteProduct = async (
     // });
 
     dispatch(deleteProductSuccess());
+    alert("Delete Product Success !!!");
   } catch (err) {
     dispatch(deleteProductError());
   }
@@ -102,6 +105,7 @@ export let createOrder = async (orderInfor, dispatch, requestTokenAxios) => {
   try {
     await requestTokenAxios.post("product/createOrder", orderInfor);
     dispatch(createOrderSuccess());
+    alert("Create Order Success !!!");
   } catch (err) {
     dispatch(createOrderError());
   }
@@ -136,6 +140,7 @@ export let updateOrder = async (
   try {
     await requestTokenAxios.put(`product/updateOrder/${user_id}`, orderInfor);
     dispatch(updateOrderSuccess());
+    alert("Update Order Success !!!");
   } catch (err) {
     dispatch(updateOrderError());
   }
